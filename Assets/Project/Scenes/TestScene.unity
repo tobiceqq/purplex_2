@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 835673245}
   - component: {fileID: 835673244}
   - component: {fileID: 835673246}
+  - component: {fileID: 835673247}
   m_Layer: 0
   m_Name: Player_YBot
   m_TagString: Untagged
@@ -330,6 +331,20 @@ MonoBehaviour:
   jumpHeight: 2
   maxJumps: 2
   gravity: -20
+--- !u!114 &835673247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835673243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994189383d7645b44a8840ae762f1105, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationController
+  animator: {fileID: 1163386805}
+  playerController: {fileID: 835673246}
 --- !u!1 &961739749
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,6 +647,10 @@ PrefabInstance:
       value: Y Bot
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 3dfd315f76589854796b8c47366cc2fd, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3bac6baf04141194f9d90793b4565b25, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 3dfd315f76589854796b8c47366cc2fd, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -643,6 +662,11 @@ PrefabInstance:
 --- !u!4 &1163386804 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3dfd315f76589854796b8c47366cc2fd, type: 3}
+  m_PrefabInstance: {fileID: 1163386803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1163386805 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 3dfd315f76589854796b8c47366cc2fd, type: 3}
   m_PrefabInstance: {fileID: 1163386803}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1227226431

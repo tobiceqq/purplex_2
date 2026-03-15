@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private int jumpCount;
     private float pitch;
 
+    public float CurrentMoveAmount { get; private set; }
+
     private void Reset()
     {
         controller = GetComponent<CharacterController>();
@@ -70,9 +72,7 @@ public class PlayerController : MonoBehaviour
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
         if (cameraPivot != null)
-        {
             cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
-        }
     }
 
     private void HandleMovement()
@@ -81,6 +81,8 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
 
         Vector3 inputDirection = new Vector3(horizontal, 0f, vertical).normalized;
+
+        CurrentMoveAmount = inputDirection.magnitude;
 
         if (inputDirection.magnitude < 0.1f)
             return;
