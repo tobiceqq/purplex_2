@@ -1,12 +1,14 @@
 using UnityEngine;
+using System.Collections; 
 
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private CharacterController controller;
-    [SerializeField] private Transform modelTransform; // Sem dej vizu�l Sonica (�lov�ka)
+    [SerializeField] private Transform modelTransform;
     [SerializeField] private Transform cameraPivot;
     [SerializeField] private Transform playerCamera;
+    [SerializeField] private PlayerAnimationController animationController;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
@@ -14,8 +16,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Mouse Look")]
     [SerializeField] private float mouseSensitivity = 2f;
-    [SerializeField] private float minPitch = -35f;
-    [SerializeField] private float maxPitch = 60f;
+    [SerializeField] private float minPitch = -10f;
+    [SerializeField] private float maxPitch = 25f;
 
     [Header("Jump")]
     [SerializeField] private float jumpHeight = 2f;
@@ -24,18 +26,22 @@ public class PlayerController : MonoBehaviour
     [Header("Gravity")]
     [SerializeField] private float gravity = -20f;
 
-    [Header("Ball Mode (Sonic Spin)")]
-    [SerializeField] private GameObject humanVisuals; // Cel� model Sonica (aby �el vypnout)
-    [SerializeField] private GameObject ballObject;   // Tv�j model koule (mus� m�t Rigidbody a SphereCollider)
+    [Header("Ball Mode")]
+    [SerializeField] private GameObject humanVisuals;
+    [SerializeField] private GameObject ballObject;
     [SerializeField] private float ballMoveSpeed = 20f;
-    [SerializeField] private KeyCode ballToggleKey = KeyCode.LeftShift; // Prom�na na Shift
+    [SerializeField] private KeyCode ballToggleKey = KeyCode.LeftShift;
+
+    [Header("Transformation Effects")]
+    [SerializeField] private ParticleSystem transformationEffect; 
+    [SerializeField] private float visualDelay = 0.15f; 
 
     private Rigidbody ballRb;
     private Vector3 velocity;
     private int jumpCount;
     private float pitch;
+    private bool isTransforming = false; 
 
-    // Prom�nn�, kterou �te anim�tor (p�id�no IsBallMode)
     public float CurrentMoveAmount { get; private set; }
     public bool IsBallMode { get; private set; }
 
@@ -49,11 +55,10 @@ public class PlayerController : MonoBehaviour
         if (controller == null)
             controller = GetComponent<CharacterController>();
 
-        // P��prava koule p�i startu
         if (ballObject != null)
         {
             ballRb = ballObject.GetComponent<Rigidbody>();
-            ballObject.SetActive(false); // Na za��tku je koule schovan�
+            ballObject.SetActive(false);
         }
     }
 
@@ -71,20 +76,18 @@ public class PlayerController : MonoBehaviour
             Cursor.visible = true;
         }
 
-        // Tla��tko pro prom�nu
-        if (Input.GetKeyDown(ballToggleKey))
+        if (Input.GetKeyDown(ballToggleKey) && !isTransforming)
         {
-            ToggleBallMode();
+            StartCoroutine(ToggleBallModeRoutine());
         }
 
-        // Kamera se h�be v�dycky, a� jsi �lov�k nebo koule
         HandleMouseLook();
 
         if (IsBallMode)
         {
             HandleBallMovement();
         }
-        else
+        else if (controller.enabled) 
         {
             HandleMovement();
             HandleJump();
@@ -92,41 +95,68 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void ToggleBallMode()
+
+
+    private IEnumerator ToggleBallModeRoutine()
     {
-        if (ballObject == null || humanVisuals == null) return;
+        isTransforming = true; 
+
+       
+        if (transformationEffect != null)
+        {
+            Vector3 effectPos = IsBallMode ? ballObject.transform.position : transform.position + Vector3.up * 0.5f;
+            transformationEffect.transform.position = effectPos;
+            transformationEffect.Play();
+        }
 
         IsBallMode = !IsBallMode;
 
+        Renderer[] ballRenderers = ballObject.GetComponentsInChildren<Renderer>();
+
         if (IsBallMode)
         {
-            // ZM�NA NA KOULI
+           
             humanVisuals.SetActive(false);
-            controller.enabled = false; // Vypneme norm�ln� kolize
+            controller.enabled = false;
 
-            ballObject.transform.position = transform.position + Vector3.up * 0.5f; // Posuneme kouli k hr��i
-            ballObject.SetActive(true);
+            ballObject.transform.position = transform.position + Vector3.up * 0.5f;
+            ballObject.SetActive(true); 
+
+            
+            foreach (var r in ballRenderers) r.enabled = false;
 
             if (ballRb != null)
             {
                 ballRb.linearVelocity = Vector3.zero;
                 ballRb.angularVelocity = Vector3.zero;
             }
+
+            yield return new WaitForSeconds(visualDelay);
+
+            foreach (var r in ballRenderers) r.enabled = true;
         }
         else
         {
-            // N�VRAT NA �LOV�KA
-            transform.position = ballObject.transform.position; // P�esuneme hr��e tam, kam dojela koule
+           
+            foreach (var r in ballRenderers) r.enabled = false; 
 
+            
+            yield return new WaitForSeconds(visualDelay);
+
+            transform.position = ballObject.transform.position;
             ballObject.SetActive(false);
-            controller.enabled = true; // Zapneme norm�ln� kolize
-            humanVisuals.SetActive(true);
+            controller.enabled = true;
+            humanVisuals.SetActive(true); 
+
+           
+            foreach (var r in ballRenderers) r.enabled = true;
         }
+
+        isTransforming = false; 
     }
 
     private void HandleBallMovement()
     {
-        // Hern� objekt hr��e (a t�m i kamera) neust�le pron�sleduje kouli
         transform.position = ballObject.transform.position;
 
         float horizontal = Input.GetAxisRaw("Horizontal");
@@ -142,18 +172,14 @@ public class PlayerController : MonoBehaviour
 
         Vector3 moveDirection = (cameraForward * vertical + cameraRight * horizontal).normalized;
 
-        // Fyzik�ln� pohyb koule
         if (ballRb != null)
         {
-            // Pou��v�me AddForce pro to spr�vn� "kut�len�"
             ballRb.AddForce(moveDirection * ballMoveSpeed * Time.deltaTime, ForceMode.VelocityChange);
         }
 
-        // Vypneme animace b�hu, proto�e model nen� vid�t
         CurrentMoveAmount = 0f;
     }
 
-    // P�VODN� FUNKCE PRO NORM�LN� POHYB Z�ST�VAJ� NEZM�N�NY
     private void HandleMouseLook()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -165,7 +191,7 @@ public class PlayerController : MonoBehaviour
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
         if (cameraPivot != null)
-            cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+            cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f); 
     }
 
     private void HandleMovement()
@@ -202,13 +228,21 @@ public class PlayerController : MonoBehaviour
     {
         if (controller.isGrounded)
         {
-            if (velocity.y < 0f) velocity.y = -2f;
+            if (velocity.y < 0f)
+                velocity.y = -2f;
+
             jumpCount = 0;
         }
 
         if (Input.GetButtonDown("Jump") && jumpCount < maxJumps)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            if (jumpCount == 0)
+            {
+                animationController?.PlayJump();
+            }
+
             jumpCount++;
         }
     }

@@ -20,10 +20,14 @@ public class PlayerAnimationController : MonoBehaviour
         if (animator == null || playerController == null)
             return;
 
-        // Pøedávání rychlosti bìhu
+       
         animator.SetFloat("Speed", playerController.CurrentMoveAmount);
 
-        // Pøedávání informace, jestli jsme v módu koule (volitelné pro Animator)
         animator.SetBool("IsRolling", playerController.IsBallMode);
+    }
+
+    public void PlayJump()
+    {
+        animator.SetTrigger("Jump");
     }
 }

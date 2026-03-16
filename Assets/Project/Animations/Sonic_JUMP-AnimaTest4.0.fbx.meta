@@ -1,0 +1,180 @@
+fileFormatVersion: 2
+guid: 25f4e5b7ad1e8354cb158bc94c99a6d6
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: Sonic_JUMP-AnimaTest4.0(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dolly_Rig
+      parentName: Sonic_JUMP-AnimaTest4.0(Clone)
+      position: {x: 22.28946, y: 8.28198, z: 19.269224}
+      rotation: {x: -0.09208299, y: 0.41257223, z: 0.038568676, w: 0.90543765}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Root
+      parentName: Dolly_Rig
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Aim
+      parentName: Root
+      position: {x: 0, y: 1.7, z: -10}
+      rotation: {x: -0.53865147, y: 0.014779419, z: 0.0000004172325, w: 0.8423991}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Aim_shape_rotation-MCH
+      parentName: Aim
+      position: {x: -0.000001013279, y: -0.00000023841858, z: -0.0000038146973}
+      rotation: {x: -0.0000000074505815, y: 6.1118066e-10, z: -0.000000005122274, w: 1}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Aim_shape_rotation-MCH_end
+      parentName: Aim_shape_rotation-MCH
+      position: {x: 0, y: 0, z: -1}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Camera
+      parentName: Root
+      position: {x: -0.00000016391277, y: 1.7000003, z: -0.0000019073486}
+      rotation: {x: 0.0000000037252899, y: 2.220446e-16, z: 3.492459e-10, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Camera_offset
+      parentName: Camera
+      position: {x: 1.7763585e-15, y: -2.220446e-16, z: -4.844042e-14}
+      rotation: {x: 0.6192627, y: 0.0038788316, z: -0.0000002759601, w: 0.78517437}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Camera_offset_end
+      parentName: Camera_offset
+      position: {x: 0, y: 0, z: -1}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Icosphere
+      parentName: Sonic_JUMP-AnimaTest4.0(Clone)
+      position: {x: 0.007549964, y: 1.1629716, z: 0.00000049358204}
+      rotation: {x: 4.6687e-17, y: 4.6687e-17, z: -0.21430929, w: 0.9767659}
+      scale: {x: 0.09182682, y: 0.09182682, z: 0.09182683}
+    - name: WGT-Aim
+      parentName: Sonic_JUMP-AnimaTest4.0(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WGT-Camera
+      parentName: Sonic_JUMP-AnimaTest4.0(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WGT-Camera_Root
+      parentName: Sonic_JUMP-AnimaTest4.0(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: WGT-Camera_offset
+      parentName: Sonic_JUMP-AnimaTest4.0(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
