@@ -20,10 +20,13 @@ public class PlayerAnimationController : MonoBehaviour
         if (animator == null || playerController == null)
             return;
 
-       
         animator.SetFloat("Speed", playerController.CurrentMoveAmount);
-
         animator.SetBool("IsRolling", playerController.IsBallMode);
+
+        // Pøidán parametr pro šplhání
+        float moveSpeed = playerController.IsClimbing ? 0 : playerController.CurrentMoveAmount;
+        animator.SetFloat("Speed", moveSpeed);
+        animator.SetBool("IsClimbing", playerController.IsClimbing);
     }
 
     public void PlayJump()
