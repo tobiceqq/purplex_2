@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 84038940906b3994789cf9d5df16fcb7
+timeCreated: 1513834247
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 140840
+  packageName: MK - Easy Text Light
+  packageVersion: 1.11.1
+  assetPath: Assets/SoftEffects/Scripts/CGHolder.cs
+  uploadId: 741852

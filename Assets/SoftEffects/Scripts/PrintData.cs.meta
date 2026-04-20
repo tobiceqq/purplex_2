@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 644c4d7b9dfdbe24caa8c8e4d52944d8
+timeCreated: 1513620029
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 140840
+  packageName: MK - Easy Text Light
+  packageVersion: 1.11.1
+  assetPath: Assets/SoftEffects/Scripts/PrintData.cs
+  uploadId: 741852

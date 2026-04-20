@@ -7,6 +7,7 @@ public class ShopTrigger : MonoBehaviour
 
     private void Update()
     {
+        if (this == null) return;
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             shopManager.OpenShop();

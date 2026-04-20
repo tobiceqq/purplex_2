@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 7374c23f04daa524c866ef96aa94e787
+timeCreated: 1510899135
+licenseType: Store
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 140840
+  packageName: MK - Easy Text Light
+  packageVersion: 1.11.1
+  assetPath: Assets/SoftEffects/Scripts/Editor/SoftEffectsFontEditor.cs
+  uploadId: 741852

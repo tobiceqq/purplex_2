@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6d49cd52da211f14aba5afb254e5749c
+timeCreated: 1486710143
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 140840
+  packageName: MK - Easy Text Light
+  packageVersion: 1.11.1
+  assetPath: Assets/SoftEffects/Examples/Materials/SoftFontWithShadowsMaterial.mat
+  uploadId: 741852

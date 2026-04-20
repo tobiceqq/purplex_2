@@ -19,8 +19,8 @@ public class EnemyAI : MonoBehaviour
     public Transform player;
 
     [Header("Drops & Effects")]
-    public GameObject explosionPrefab; // Tvùj Particle System (Prefab)
-    public GameObject healPrefab;      // Prefab lékárnièky/healu
+    public GameObject explosionPrefab;
+    public GameObject healPrefab;      
 
     [Header("Movement Settings")]
     public float patrolSpeed = 2f;
@@ -29,10 +29,10 @@ public class EnemyAI : MonoBehaviour
     [Header("Attack Settings (Propojeno s PlayerHealth)")]
     public float attackDistance = 1.5f;
     public float attackCooldown = 1f;
-    public float attackDamage = 20f; // Kolik životù ubere Purplexovi
+    public float attackDamage = 20f; 
 
     [Header("Enemy Stats")]
-    public float enemyHealth = 50f; // Životy nepøítele
+    public float enemyHealth = 50f; 
 
     [Header("Detection Settings")]
     public float chaseDistance = 8f;
@@ -56,14 +56,13 @@ public class EnemyAI : MonoBehaviour
     private Color originalColor;
     public float flashDuration = 0.15f;
 
-    private Renderer[] childRenderers; // Budeme si pamatovat všechny èásti modelu
+    private Renderer[] childRenderers; 
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
 
-        // Tohle najde všechny renderery v modelu (ruce, nohy, tìlo...)
         childRenderers = GetComponentsInChildren<Renderer>();
 
         if (player == null)
@@ -75,8 +74,8 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        // Pokud hráè neexistuje (tøeba umøel), AI nic nedìlá
-        if (player == null) return;
+        if (player == null || this == null) return;
+
 
         switch (currentState)
         {
@@ -94,10 +93,8 @@ public class EnemyAI : MonoBehaviour
         attackTimer -= Time.deltaTime;
         if (anim != null && agent != null)
         {
-            // Zjistíme, jak rychle se agent hýbe
             float speed = agent.velocity.magnitude;
 
-            // Pokud je rychlost vyšší než 0.1, nastavíme isRunning na true
             if (speed > 0.1f)
             {
                 anim.SetBool("isRunning", true);
@@ -110,25 +107,21 @@ public class EnemyAI : MonoBehaviour
     }
     IEnumerator FlashEffect(Renderer r)
     {
-        // Uložíme si všechny pùvodní barvy materiálù na tomto rendereru
-        // (Model mùže mít víc materiálù, napø. kùže, brnìní atd.)
+       
         Material[] mats = r.materials;
         Color[] oldColors = new Color[mats.Length];
 
         for (int i = 0; i < mats.Length; i++)
         {
-            // Zkusíme najít barvu pod rùznými názvy, které Unity používá
             if (mats[i].HasProperty("_Color")) oldColors[i] = mats[i].color;
             else if (mats[i].HasProperty("_BaseColor")) oldColors[i] = mats[i].GetColor("_BaseColor");
 
-            // Nastavíme jasnì èervenou
             if (mats[i].HasProperty("_BaseColor")) mats[i].SetColor("_BaseColor", Color.red);
             else mats[i].color = Color.red;
         }
 
         yield return new WaitForSeconds(flashDuration);
 
-        // Vrátíme barvy zpìt
         for (int i = 0; i < mats.Length; i++)
         {
             if (mats[i].HasProperty("_BaseColor")) mats[i].SetColor("_BaseColor", oldColors[i]);
@@ -188,7 +181,7 @@ public class EnemyAI : MonoBehaviour
     void Attack()
     {
         if (rend != null && attackMaterial != null) rend.material = attackMaterial;
-        agent.ResetPath(); // Zastaví se, aby mohl zaútoèit
+        agent.ResetPath(); 
 
         if (!PlayerInChaseRange() && !PlayerInViewRange())
         {
@@ -202,16 +195,14 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // Otoèí se èelem k hráèi
         Vector3 direction = (player.position - transform.position).normalized;
-        direction.y = 0; // Aby se nenaklánìl nahoru/dolù
+        direction.y = 0; 
         transform.rotation = Quaternion.LookRotation(direction);
 
         if (attackTimer <= 0f)
         {
             Debug.Log("Nepøítel tì kousnul!");
 
-            // --- PROPOJENÍ S TVÝM HEALTH SYSTÉMEM ---
             PlayerHealth ph = player.GetComponent<PlayerHealth>();
             if (ph != null)
             {
@@ -222,31 +213,25 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // --- TADY DOSTÁVÁ DAMAGE NEPØÍTEL OD HYPERROLLU ---
     private void OnCollisionEnter(Collision collision)
     {
-        // 1. Reagujeme jen pokud do nás narazí objekt s tagem Player
         if (collision.gameObject.CompareTag("Player"))
         {
-            // 2. Najdeme HLAVNÍ skript hráèe kdekoli ve scénì (je tam jen jeden, takže je to jistota)
             PlayerController pc = Object.FindFirstObjectByType<PlayerController>();
 
             if (pc != null)
             {
-                // 3. TADY JE TA ZMÌNA: Budeme ignorovat, co si myslí kolize, 
-                // a zeptáme se pøímo skriptu, v jakém je módu.
+                
                 if (pc.IsBallMode)
                 {
-                    // Výpoèet poškození - pokud dashuje, dá víc
                     float damage = pc.isDashing ? 50f : 25f;
                     TakeDamage(damage);
 
-                    // Pøidáme fyzický odraz (Knockback), aby se o sebe nezasekávali
                     Rigidbody rb = GetComponent<Rigidbody>();
                     if (rb != null)
                     {
                         Vector3 knockbackDir = (transform.position - collision.transform.position).normalized;
-                        knockbackDir.y = 0.5f; // Trochu ho to nadzvedne
+                        knockbackDir.y = 0.5f; 
                         rb.AddForce(knockbackDir * 15f, ForceMode.Impulse);
                     }
 
@@ -254,7 +239,6 @@ public class EnemyAI : MonoBehaviour
                 }
                 else
                 {
-                    // Pokud nejsi koule, nepøítel tì prostì "odstrèí" nebo ty jeho, ale nic se nestane
                     Debug.Log("Kolize s hráèem v lidské formì - žádné poškození nepøítele.");
                 }
             }
@@ -262,9 +246,9 @@ public class EnemyAI : MonoBehaviour
     }
     System.Collections.IEnumerator StunEnemy()
     {
-        agent.enabled = false; // Vypne mozek AI
-        yield return new WaitForSeconds(0.5f); // Poèká pùl sekundy
-        if (enemyHealth > 0) agent.enabled = true; // Zase zapne mozek
+        agent.enabled = false; 
+        yield return new WaitForSeconds(0.5f); 
+        if (enemyHealth > 0) agent.enabled = true; 
     }
 
 
@@ -286,15 +270,14 @@ public class EnemyAI : MonoBehaviour
     {
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
 
-        // 1. Získáme aktuální blok a nastavíme èervenou
+        
         r.GetPropertyBlock(propBlock);
-        propBlock.SetColor("_Color", Color.red);       // Pro starší shadery
-        propBlock.SetColor("_BaseColor", Color.red);   // Pro URP shadery
+        propBlock.SetColor("_Color", Color.red);      
+        propBlock.SetColor("_BaseColor", Color.red);   
         r.SetPropertyBlock(propBlock);
 
         yield return new WaitForSeconds(flashDuration);
 
-        // 2. Vyèistíme blok - vrátí se pùvodní barva z materiálu
         r.GetPropertyBlock(propBlock);
         propBlock.Clear();
         r.SetPropertyBlock(propBlock);
@@ -302,17 +285,10 @@ public class EnemyAI : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Metoda Die se spustila!"); // Pokud tohle neuvidíš v konzoli, nepøítel neumírá správnì
-
         if (explosionPrefab != null)
         {
-            Debug.Log("Vytváøím výbuch!");
             GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-            Destroy(explosion, 3f);
-        }
-        else
-        {
-            Debug.LogWarning("POZOR: Chybí pøiøazený prefab výbuchu v Inspectoru!");
+            if (explosion != null) Destroy(explosion, 3f);
         }
 
         if (healPrefab != null)
@@ -320,10 +296,10 @@ public class EnemyAI : MonoBehaviour
             Instantiate(healPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
         }
 
+        StopAllCoroutines();
         Destroy(gameObject);
     }
 
-    // --- ZBYTEK METOD ZÙSTÁVÁ STEJNÝ ---
 
     bool PlayerInChaseRange()
     {

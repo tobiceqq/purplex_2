@@ -29,6 +29,10 @@ public class ShopManager : MonoBehaviour
         if (stats.energy >= price)
         {
             stats.energy -= price;
+
+            
+            stats.UpdateUI();      
+
             stats.hasHyperRoll = true;
             Debug.Log("4. ÚSPÌCH: HyperRoll koupen! Zbývá energie: " + stats.energy);
             CloseShop();

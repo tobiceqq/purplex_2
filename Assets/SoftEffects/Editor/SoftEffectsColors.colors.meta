@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: c641c1941196fee4da4cb173500d530f
+timeCreated: 1524048673
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 140840
+  packageName: MK - Easy Text Light
+  packageVersion: 1.11.1
+  assetPath: Assets/SoftEffects/Editor/SoftEffectsColors.colors
+  uploadId: 741852

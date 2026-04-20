@@ -9,9 +9,13 @@ public class ChestScript : MonoBehaviour
     {
         if (other.CompareTag("Player") && !isOpen && Input.GetKeyDown(KeyCode.E))
         {
-            other.GetComponent<PlayerStats>().AddEnergy(energyAmount);
-            isOpen = true;
-            gameObject.SetActive(false); 
+            PlayerStats ps = other.GetComponent<PlayerStats>();
+            if (ps != null)
+            {
+                ps.AddEnergy(energyAmount);
+                isOpen = true;
+                Destroy(gameObject, 0.01f);
+            }
         }
     }
 

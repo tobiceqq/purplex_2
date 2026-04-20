@@ -19,12 +19,26 @@ public class PlayerStats : MonoBehaviour
         energy += amount;
         UpdateUI();
     }
+    public void RemoveEnergy(int amount)
+    {
+        energy -= amount;
+        UpdateUI(); 
+    }
+    public void ActivateHyperRoll()
+    {
+        hasHyperRoll = true;
+    }
 
     public void UpdateUI()
     {
         if (energyText != null)
         {
             energyText.text = "Energie: " + energy;
+            Debug.Log("UI se aktualizuje! Nová hodnota: " + energy);
+        }
+        else
+        {
+            Debug.LogWarning("POZOR: EnergyText není v Inspectoru pøiøazen!");
         }
     }
 }

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: aa75a98b3a8d5944390dd9b90d16d127
+timeCreated: 1513531565
+licenseType: Store
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 140840
+  packageName: MK - Easy Text Light
+  packageVersion: 1.11.1
+  assetPath: Assets/SoftEffects/EditFolder/calibriz_SEFont_0/calibriz_se_rep_work.mat
+  uploadId: 741852

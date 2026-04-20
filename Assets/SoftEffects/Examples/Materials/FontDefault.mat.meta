@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e29c5da7300facf4bb4abee8042b1591
+timeCreated: 1499081941
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 140840
+  packageName: MK - Easy Text Light
+  packageVersion: 1.11.1
+  assetPath: Assets/SoftEffects/Examples/Materials/FontDefault.mat
+  uploadId: 741852
